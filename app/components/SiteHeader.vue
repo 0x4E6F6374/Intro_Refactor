@@ -3,6 +3,7 @@ defineProps<{
   github: string
   monogram?: string
   handle?: string
+  logo?: string
 }>()
 
 const links = [
@@ -47,10 +48,11 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
     <div class="shell flex h-18 items-center justify-between">
       <a href="#top" class="group flex items-center gap-3" aria-label="返回顶部">
         <span
-          class="relative grid size-8 place-items-center rounded-sm border transition-colors group-hover:border-[var(--accent)]"
+          class="relative grid size-8 place-items-center overflow-hidden rounded-sm border transition-colors group-hover:border-[var(--accent)]"
           :style="{ borderColor: 'var(--line-strong)' }"
         >
-          <span class="text-accent mono text-sm font-semibold">{{ monogram ?? 'W' }}</span>
+          <img v-if="logo" :src="logo" :alt="handle ?? 'logo'" class="size-full object-cover" />
+          <span v-else class="text-accent mono text-sm font-semibold">{{ monogram ?? 'W' }}</span>
           <span class="absolute -right-0.5 -top-0.5 size-1.5 rounded-full bg-emerald-400" />
         </span>
         <span class="mono text-xs tracking-[0.2em]" :style="{ color: 'var(--ink-soft)' }">{{ handle ?? 'WMING' }}</span>
