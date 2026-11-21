@@ -30,6 +30,7 @@ const monogram = computed(() => profile.value?.name?.charAt(0) ?? 'W')
 
 <template>
   <main>
+    <LoadingScreen v-if="profile" :name="profile.name" />
     <SiteHeader :github="github" :monogram="monogram" :handle="profile?.name" />
 
     <HeroSection

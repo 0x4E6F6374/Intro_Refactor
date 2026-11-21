@@ -9,9 +9,9 @@ const onPointer = (event: PointerEvent) => {
   pointer.y = (event.clientY / window.innerHeight) * 2 - 1
 }
 
-const particleColor = computed(() => (isDark.value ? '#67e8f9' : '#0e7490'))
-const frameColor = computed(() => (isDark.value ? '#22d3ee' : '#0e7490'))
-const frameColorSoft = computed(() => (isDark.value ? '#818cf8' : '#4f46e5'))
+const particleColor = computed(() => (isDark.value ? '#67e8f9' : '#0891b2'))
+const frameColor = computed(() => (isDark.value ? '#22d3ee' : '#06b6d4'))
+const frameColorSoft = computed(() => (isDark.value ? '#818cf8' : '#6366f1'))
 
 onMounted(() => window.addEventListener('pointermove', onPointer, { passive: true }))
 onBeforeUnmount(() => window.removeEventListener('pointermove', onPointer))
@@ -26,12 +26,19 @@ onBeforeUnmount(() => window.removeEventListener('pointermove', onPointer))
       :dpr="[1, 2]"
     >
       <TresPerspectiveCamera :position="[0, 0, 9]" :fov="55" />
-      <SceneObjects
-        :pointer="pointer"
-        :particle-color="particleColor"
-        :frame-color="frameColor"
-        :frame-color-soft="frameColorSoft"
-      />
+      <EffectComposer :key="isDark ? 'dark' : 'light'">
+        <UnrealBloom
+          :radius="0.6"
+          :strength="isDark ? 0.9 : 0.5"
+          :threshold="isDark ? 0.15 : 0.35"
+        />
+        <SceneObjects
+          :pointer="pointer"
+          :particle-color="particleColor"
+          :frame-color="frameColor"
+          :frame-color-soft="frameColorSoft"
+        />
+      </EffectComposer>
     </TresCanvas>
   </ClientOnly>
 </template>

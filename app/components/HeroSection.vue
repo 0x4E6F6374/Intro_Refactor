@@ -16,6 +16,7 @@ const props = defineProps<{
 }>()
 
 const activeAvatar = ref(0)
+const { el: gridEl } = useParallax(0.12)
 
 const headlineParts = computed(() => {
   const text = props.headline
@@ -40,7 +41,7 @@ const cycleAvatar = () => {
     <div class="pointer-events-none absolute inset-0">
       <Scene3D />
     </div>
-    <div class="grid-bg pointer-events-none absolute inset-0" />
+    <div ref="gridEl" class="grid-bg pointer-events-none absolute -inset-y-24 inset-x-0 will-change-transform" />
     <div
       class="pointer-events-none absolute inset-0"
       :style="{ background: `radial-gradient(ellipse 60% 50% at 78% 45%, var(--glow), transparent 70%)` }"
@@ -59,10 +60,10 @@ const cycleAvatar = () => {
           </p>
 
           <h1
-            class="reveal max-w-[14ch] font-semibold leading-[1.06] tracking-[-0.05em] text-[clamp(2.8rem,7vw,5.6rem)]"
-            :style="{ color: 'var(--ink)', animationDelay: '0.1s' }"
+            class="max-w-[14ch] font-semibold leading-[1.06] tracking-[-0.05em] text-[clamp(2.8rem,7vw,5.6rem)]"
+            :style="{ color: 'var(--ink)' }"
           >
-            {{ headlineParts.body }}<span class="text-accent">{{ headlineParts.punctuation }}</span>
+            <RevealText :text="headlineParts.body" :punctuation="headlineParts.punctuation" :start-delay="0.1" />
           </h1>
 
           <p
@@ -85,26 +86,13 @@ const cycleAvatar = () => {
           </div>
 
           <div class="reveal mt-11 flex items-center gap-3" :style="{ animationDelay: '0.3s' }">
-            <a
-              v-for="(social, index) in socials"
+            <SocialButton
+              v-for="social in socials"
               :key="social.label"
-              :href="social.url"
-              :target="social.url ? '_blank' : undefined"
-              rel="noopener"
-              class="group relative grid size-11 place-items-center rounded-full border transition-all duration-300 hover:-translate-y-1"
-              :style="{
-                borderColor: 'var(--line)',
-                color: 'var(--ink-soft)',
-                background: 'var(--surface)',
-                cursor: social.url ? 'pointer' : 'default',
-                animationDelay: `${0.32 + index * 0.05}s`
-              }"
-              :class="social.url ? 'hover:border-[var(--accent)] hover:text-[var(--accent)]' : ''"
-              :aria-label="social.label"
-              :title="social.label"
-            >
-              <UIcon :name="social.icon" class="size-[18px] transition-transform duration-300 group-hover:scale-110" />
-            </a>
+              :label="social.label"
+              :icon="social.icon"
+              :url="social.url"
+            />
           </div>
         </div>
 

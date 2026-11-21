@@ -16,6 +16,7 @@
     "@tresjs/cientos": "5.12.0",
     "@tresjs/core": "5.12.0",
     "@tresjs/nuxt": "5.10.0",
+    "@tresjs/post-processing": "^3.13.0",
     "better-sqlite3": "^13.2.0",
     "nuxt": "4.6.4",
     "tailwindcss": "4.3.5",

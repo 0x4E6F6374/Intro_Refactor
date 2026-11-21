@@ -17,6 +17,9 @@ socials:
   - label: QQ 群
     icon: i-simple-icons-qq
     url: https://qm.qq.com/q/s2p0U4F9Xq
+  - label: QQ · 3750620867
+    icon: i-simple-icons-qq
+    url: tencent://message/?uin=3750620867
   - label: Discord · @0x4E6F6374
     icon: i-simple-icons-discord
   - label: Telegram
