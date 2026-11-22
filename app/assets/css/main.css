@@ -102,6 +102,13 @@ body {
   font-family: var(--font-serif);
 }
 
+[data-protected],
+[data-protected] * {
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .label {
   font-family: var(--font-mono);
   font-size: 0.6875rem;

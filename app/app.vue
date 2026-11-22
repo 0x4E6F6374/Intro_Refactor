@@ -1,3 +1,7 @@
+<script setup lang="ts">
+useImageProtection()
+</script>
+
 <template>
   <UApp>
     <AmbientGlow />

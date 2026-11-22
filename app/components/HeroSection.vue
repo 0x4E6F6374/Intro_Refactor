@@ -103,34 +103,13 @@ const cycleAvatar = () => {
               :style="{ background: 'var(--glow)' }"
             />
 
-            <div class="corner relative aspect-square w-full">
-              <button
-                type="button"
-                class="group relative block size-full overflow-hidden"
-                :style="{ border: '1px solid var(--line-strong)' }"
-                :aria-label="`切换头像，当前第 ${activeAvatar + 1} 张`"
-                @click="cycleAvatar"
-              >
-                <img
-                  v-for="(avatar, index) in avatars"
-                  :key="avatar"
-                  :src="avatar"
-                  :alt="`${name} 的头像 ${index + 1}`"
-                  class="absolute inset-0 size-full object-cover transition-all duration-700"
-                  :class="index === activeAvatar ? 'scale-100 opacity-100' : 'scale-105 opacity-0'"
-                />
-                <div
-                  class="pointer-events-none absolute inset-0 opacity-30"
-                  :style="{ background: 'repeating-linear-gradient(0deg, transparent, transparent 3px, var(--bg) 4px)' }"
-                />
-                <span
-                  class="absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 py-3 text-[10px] tracking-[0.2em] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  :style="{ background: 'color-mix(in srgb, var(--bg) 88%, transparent)', color: 'var(--ink-soft)' }"
-                >
-                  <UIcon name="i-lucide-refresh-cw" class="size-3" />
-                  CLICK TO SWITCH
-                </span>
-              </button>
+            <div class="corner relative aspect-square w-full" :style="{ border: '1px solid var(--line-strong)' }">
+              <ProtectedAvatar
+                :avatars="avatars"
+                :name="name"
+                :active="activeAvatar"
+                @cycle="cycleAvatar"
+              />
 
               <span class="mono absolute -left-3 top-4 -translate-x-full text-[10px] tracking-widest" :style="{ color: 'var(--ink-faint)', writingMode: 'vertical-rl' }">
                 ID / {{ String(activeAvatar + 1).padStart(2, '0') }}
